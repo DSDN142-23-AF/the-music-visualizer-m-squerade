@@ -22,10 +22,13 @@ function draw_one_frame(words, vocal, drum, bass, other,counter) {
     
     image(img_bg, 0, 0, canvasWidth, canvasHeight);
 
-    radius = map(drum, 0, 100, DIE_RADIUS_MIN, DIE_RADIUS_MAX);
+    let radius = map(drum, 0, 100, DIE_RADIUS_MIN, DIE_RADIUS_MAX);
     draw_die(canvasWidth / 2, canvasHeight - DIE_RADIUS_MAX, radius, 10, DIE_RADIUS_MIN);
 
-    image(img_orphie, 200, 300, RAW_SIZE_ORPHIE_WIDTH * SCALE, RAW_SIZE_ORPHIE_HEIGHT * SCALE);
+    let scale = map(vocal, 0, 100, SCALE * 0.9, SCALE / 0.9);
+    let orphie_width = RAW_SIZE_ORPHIE_WIDTH * scale;
+    let orphie_height = RAW_SIZE_ORPHIE_HEIGHT * scale;
+    image(img_orphie, (canvasWidth * 0.8) - (orphie_width / 2), (canvasHeight * 0.7) - (orphie_height / 2), orphie_width, RAW_SIZE_ORPHIE_HEIGHT * scale);
 }
 
 
