@@ -24,7 +24,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     image(img_bg, 0, 0, canvasWidth, canvasHeight);
 
     // Draw Orphie (Vocals = Scale)
-    let scale = map(vocal, 0, 100, SCALE * 0.9, SCALE / 0.9);
+    let scale = map(vocal, 0, 100, SCALE, SCALE / 0.85);
     let orphie_width = ORPHIE_WIDTH * scale;
     let orphie_height = ORPHIE_HEIGHT * scale;
     push();
