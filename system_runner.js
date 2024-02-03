@@ -1,7 +1,6 @@
 const canvasWidth = 1440;
 const canvasHeight = 810;
 
-
 let mainCanvas;
 
 let textInput;
