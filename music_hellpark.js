@@ -28,7 +28,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     angleMode(DEGREES);
     load_imgs_if_required();
 
-    background(255,236,180); // cream   
+    background(0, 0, 0); // cream   
     image(img_bg, 0, 0, canvasWidth, canvasHeight);
 
     // Draw Orphie (Vocals = Scale)
@@ -51,7 +51,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     pop();
 
     // Draw Silske (Bass = Translate)
-    let dxy = map(bass, 0, 100, -25, 25);
+    let dxy = map(bass, 0, 100, -10, 10);
     push();
     imageMode(CENTER);
     translate((canvasWidth * 0.65) + dxy, (canvasHeight * 0.5) + dxy);
