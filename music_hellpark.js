@@ -1,4 +1,7 @@
-let img_bg;
+let img_bg_1;
+let img_bg_2;
+let img_bg_3;
+let img_karas;
 let img_orphie;
 let img_spku;
 let img_lam_1;
@@ -8,8 +11,11 @@ let img_nobody;
 let die_roll = 20;
 
 const SCALE = 0.75;
+const KARAS_SPEED = 15.0; // screen traverse, in seconds
 const DIE_RADIUS_MIN = 65 * SCALE;
 const DIE_RADIUS_MAX = 75 * SCALE;
+const KARAS_HEIGHT = 267 * SCALE * 0.6;
+const KARAS_WIDTH = 320 * SCALE * 0.6;
 const ORPHIE_WIDTH = 433 * SCALE * 1.1;
 const ORPHIE_HEIGHT = 561 * SCALE * 1.1;
 const SPKU_WIDTH = 429 * SCALE;
@@ -28,8 +34,22 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     angleMode(DEGREES);
     load_imgs_if_required();
 
-    background(0, 0, 0); // cream   
-    image(img_bg, 0, 0, canvasWidth, canvasHeight);
+    background(0, 0, 0); // black
+    if (counter < KARAS_SPEED) {
+        image(img_bg_1, 0, 0, canvasWidth, canvasHeight);
+    } else if (counter < KARAS_SPEED + 2.0) {
+        image(img_bg_2, 0, 0, canvasWidth, canvasHeight);
+    } else { // counter >= KARAS_SPEED + 2.0
+        image(img_bg_3, 0, 0, canvasWidth, canvasHeight);
+    }
+
+    // Draw Karas (Counter = Translate)
+    let xx = ((counter / KARAS_SPEED) * (canvasWidth + KARAS_WIDTH)) - (KARAS_WIDTH / 2);
+    push();
+    imageMode(CENTER);
+    translate(xx, canvasHeight * 0.1);
+    image(img_karas, 0, 0, KARAS_WIDTH, KARAS_HEIGHT);
+    pop();
 
     // Draw Orphie (Vocals = Scale)
     let scale = map(vocal, 0, 100, SCALE, SCALE / 0.85);
@@ -84,29 +104,40 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
         pop();
     }
     pop();
+
+    //Draw Karas.. TODO; counter make him fly across the screen
 }
 
 function load_imgs_if_required() {
-    if (!img_bg) {
-        img_bg = loadImage('assets/Amona_BG.png'); // Amona is a town in my campaign. a volcano exploded there
+    if (!img_bg_1) {
+        img_bg_1 = loadImage('assets/Amona_BG_NoErrupt.png');
+    }
+    if (!img_bg_2) {
+        img_bg_2 = loadImage('assets/Amona_BG_Errupt.png');
+    }
+    if (!img_bg_3) {
+        img_bg_3 = loadImage('assets/Amona_BG.png');
+    }
+    if (!img_karas) {
+        img_karas = loadImage('assets/Karas_Foreground.png'); 
     }
     if (!img_orphie) {
-        img_orphie = loadImage('assets/Orphie_Vocals.png'); // My daughter :)
+        img_orphie = loadImage('assets/Orphie_Vocals.png'); 
     }
     if (!img_spku) {
-        img_spku = loadImage('assets/Spku_Other_Flute.png'); // Our fighter. He has 3 braincells
+        img_spku = loadImage('assets/Spku_Other_Flute.png'); 
     }
     if (!img_lam_1) {
-        img_lam_1 = loadImage('assets/Lam_Drums_Clean.png'); // Our ranger. She hates the dead guy so that's why i made the drums bounce his corpse when she hits them
+        img_lam_1 = loadImage('assets/Lam_Drums_Clean.png'); 
     }
     if (!img_lam_2) {
         img_lam_2 = loadImage('assets/Lam_Drums_Armdown.png');
     }
     if (!img_silske) {
-        img_silske = loadImage('assets/Silske_Bass.png'); // Our rogue. He's my favourite (don't tell anyone)
+        img_silske = loadImage('assets/Silske_Bass.png'); 
     }
     if (!img_nobody) {
-        img_nobody = loadImage('assets/Nobody_Foreground.png'); // Our Warlock (and new BBEG). He's part crow and part crime
+        img_nobody = loadImage('assets/Nobody_Foreground.png'); 
     }
 }
 
